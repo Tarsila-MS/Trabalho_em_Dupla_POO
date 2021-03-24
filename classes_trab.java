@@ -1,70 +1,107 @@
-class Cliente{
+public class Pessoa {
 
-private double valorDaDivida;
+	protected String nome, cpf;
 
-public void setCliente (double valorDaDivida){
-	   this.valorDaDivida = valorDaDivida 	
+	public Pessoa(String nome, String cpf) {
+
 	}
-}
 
-public class Pessoa{
-
-	protect String nome, cpf;
-
-	public Pessoa(String nome, String cpf){
-		
-	}
-}
-
-public class Empregado{
-
-	protect String matricula;
 	
-	public void setEmpregado (String matricula){
-	   this.matricula = matricula	
+
+	public String getNome() {
+		return nome;
 	}
-	
-}
 
-public class Gerente(double salario, double bonus){
-
-                private double salario;
-                
-                private double bonus{
-                        
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	
-}
-public interface Bonus{
 
-        public CalcularBonus(){
-        
-                return salario * bonus;
-        }
-                
-}
-
-public class Vendedor(double totalDasVendas, double comissão){
-
-                private double totalDasVendas;
-                
-                private double comissão{
-                        
+	/**
+	 * @return the cpf
+	 */
+	public String getCpf() {
+		return cpf;
 	}
-	
+
+	/**
+	 * @param cpf the cpf to set
+	 */
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	class Cliente extends Pessoa {
+
+		public Cliente(String nome, String cpf) {
+			super(nome, cpf);
+
+		}
+
+		private double valorDaDivida;
+
+		public void setCliente(double valorDaDivida) {
+			this.valorDaDivida = valorDaDivida;
+		}
+	}
+
+	public class Empregado extends Pessoa {
+
+		public Empregado(String nome, String cpf) {
+			super(nome, cpf);
+
+		}
+
+		protected String matricula;
+
+		public void setEmpregado(String matricula) {
+			this.matricula = matricula;
+		}
+
+		public class Gerente extends Empregado {
+
+			public Gerente(String nome, String cpf) {
+				super(nome, cpf);
+
+			}
+
+			private double salario;
+
+			private double bonus;
+			{
+
+			}
+
+		}
+
+		public class Vendedor extends Empregado {
+
+			public Vendedor(String nome, String cpf) {
+				super(nome, cpf);
+
+			}
+
+			private double totalDasVendas;
+
+			private double comissão;
+
+		}
+	}
+
+	public interface Salario {
+
+		public static double calcularSalario(int totalDeVendas, int comissao) {
+
+			return totalDeVendas * (comissao / 100);
+		}
+
+	}
+
+	public interface Bonus {
+
+		public static double CalcularBonus(double salario, int bonus) {
+
+			return salario * (bonus / 100);
+		}
+
+	}
 }
-
-public interface Salario{
-        
-        public calcularSalario(){
-        
-                return totalDeVendas * comissao;
-        }
-        
-
-              
-}
-
-}
-
-
