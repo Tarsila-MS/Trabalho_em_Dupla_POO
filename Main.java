@@ -123,87 +123,10 @@ public class Main {
 	}
 
 
-	private static void ListarClientes(Pessoa[] pessoa, int posicao) {
-		String aux;
-		for (int i = 0; i < posicao; i++) {
-			if (pessoa[i] == cliente) {
-				aux = pessoa[i].getNome() + " ,Cpf: " + pessoa[i].getCpf() + "\n";
 
-			}
 
-		}
-		showMessageDialog(null, "Clientes \n" + aux);
-	}
 
-	private static void listarEmpregados(Pessoa[] pessoa, int posicao) {
-		String aux;
-		for (int i = 0; i < posicao; i++) {
-			if (pessoa[i] == Pessoa.Empregado()) {
-				aux = pessoa[i].getNome() + " ,Cpf: " + pessoa[i].getCpf() + "\n";
-
-			}
-
-		}
-		showMessageDialog(null, "Clientes \n" + aux);
-	}
-
-	private static void cadastrarCliente(Pessoa[] pessoa, int posicao) {
-		pessoa[posicao] = new Pessoa.Cliente(null, null);
-		pessoa[posicao].setNome(showInputDialog("Informe seu nome"));
-		pessoa[posicao].setCpf(  showInputDialog("Informe seu cpf")); 
-		pessoa[posicao].valorDaDivida = showInputDialog("Informe sua divida");
-		for (int i = 0; i < posicao; i++) {
-			if (pessoa[posicao].getCpf().equals(pessoa[i].getCpf())) {
-				showMessageDialog(null, "CPF repetido, impossivel cadastrar nova pessoa");
-
-				posicao--;
-
-			}
-
-		}
-
-	}
-
-	private static void cadastrarEmpregado(Pessoa[] pessoa, int posicao) {
-		int opcao = parseInt(showInputDialog(null, "1. Vendedor \n 2. Gerente"));
-		switch (opcao) {
-		case 1:
-			pessoa[posicao] = new Pessoa(null, null);
-			pessoa[posicao].setNome(showInputDialog("Informe seu nome"));
-			pessoa[posicao].setCpf(  showInputDialog("Informe seu cpf")); 
-			pessoa[posicao].matricula = showInputDialog("Informe a matrícula");
-			pessoa[posicao].salario = showInputDialog("Informe o salario");
-			pessoa[posicao].comissao = showInputDialog("Informe a comissão");
-			for (int i = 0; i < posicao; i++) {
-				if (pessoa[posicao].getCpf().equals(pessoa[i].getCpf())) {
-					showMessageDialog(null, "CPF repetido, impossivel cadastrar nova pessoa");
-
-					posicao--;
-
-				}
-
-			}
-
-			break;
-		case 2:
-			pessoa[posicao] = new Pessoa(null, null);
-			pessoa[posicao].setNome(showInputDialog("Informe seu nome"));
-			pessoa[posicao].setCpf(  showInputDialog("Informe seu cpf")); 
-			pessoa[posicao].matricula = showInputDialog("Informe a matrícula");
-			pessoa[posicao].salario = showInputDialog("Informe o salario");
-			pessoa[posicao].bonus = showInputDialog("Informe o bonus");
-			for (int i = 0; i < posicao; i++) {
-				if (pessoa[posicao].getCpf().equals(pessoa[i].getCpf())) {
-					showMessageDialog(null, "CPF repetido, impossivel cadastrar nova pessoa");
-
-					posicao--;
-
-				}
-
-			}
-			break;
-		}
-	}
+	
 	public static String gerarMenu() {
 		String aux = "Escolha uma opção\n";
 		aux += "1. Cadastrar Empregado\n";
