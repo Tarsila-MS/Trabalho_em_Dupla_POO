@@ -30,19 +30,7 @@ public class Pessoa {
 		this.cpf = cpf;
 	}
 
-	class Cliente extends Pessoa {
-
-		public Cliente(String nome, String cpf) {
-			super(nome, cpf);
-
-		}
-
-		private double valorDaDivida;
-
-		public void setCliente(double valorDaDivida) {
-			this.valorDaDivida = valorDaDivida;
-		}
-	}
+	
 
 	public class Empregado extends Pessoa {
 
