@@ -1,16 +1,24 @@
 public class Vendedor extends Empregado {
+	private double totalDasVendas;
 
-			public Vendedor(String nome, String cpf) {
-				super(nome, cpf);
+	private double comissao;
+
+			public Vendedor() {
+				super();
 
 			}
 
-			private double totalDasVendas;
+			
+		
+			public void setTotalDasVendas(double vendas) {
+				this.totalDasVendas = vendas;
+			}
+			public void setComissao(double comissao) {
+				this.comissao = comissao;
+			}
 
-			private double comissão;
-
-		}
-	}
+		
+	
 
 	
 	public interface Salario {
@@ -20,4 +28,4 @@ public class Vendedor extends Empregado {
 			return totalDeVendas * (comissao / 100);
 		}
 
-	}
+	} }

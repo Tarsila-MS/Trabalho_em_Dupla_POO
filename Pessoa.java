@@ -2,7 +2,7 @@ public class Pessoa {
 
 	protected String nome, cpf;
 
-	public Pessoa(String nome, String cpf) {
+	public Pessoa() {
 
 	}
 
@@ -28,7 +28,7 @@ public class Pessoa {
 	 */
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}
+	}}
 
 
 	

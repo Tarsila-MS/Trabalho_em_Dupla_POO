@@ -1,13 +1,13 @@
 class Cliente extends Pessoa {
 
-		public Cliente(String nome, String cpf) {
-			super(nome, cpf);
+		public Cliente() {
+			super();
 
 		}
 
 		private double valorDaDivida;
 
-		public void setCliente(double valorDaDivida) {
+		public void setValorDaDivida(double valorDaDivida) {
 			this.valorDaDivida = valorDaDivida;
 		}
 	}

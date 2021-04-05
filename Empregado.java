@@ -1,16 +1,21 @@
 public class Empregado extends Pessoa {
+	protected String matricula;
 
-		public Empregado(String nome, String cpf) {
-			super(nome, cpf);
+		public Empregado() {
+			super();
 
 		}
 
-		protected String matricula;
-
-		public void setEmpregado(String matricula) {
+		public String getMatricula() {
+			return matricula;
+		}
+	
+		public void setMatricula(String matricula) {
 			this.matricula = matricula;
 		}
-}
+
+	
+
 
 	public interface Bonus {
 
