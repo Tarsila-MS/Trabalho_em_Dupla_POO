@@ -162,4 +162,37 @@ public class Main {
 
 		});
 	}
+
+	public static void Pesquisar(ArrayList<Pessoa> pessoa) {
+		String consulta = showInputDialog(null, "Informe o Cpf a ser buscado");
+		pessoa.forEach(pessoas -> {
+
+			if (pessoas.getCpf().equals(consulta)) {
+				if (pessoas instanceof Empregado) {
+					showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas);
+				} else if (pessoas instanceof Cliente) {
+
+					showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas);
+				}
+
+			} else {
+				showMessageDialog(null, "Pessoa não encontrada");
+			}
+
+		});
+
+	}
+
+	public static void Listar(ArrayList<Pessoa> pessoa) {
+		pessoa.forEach(pessoas -> {
+			if (pessoas instanceof Empregado) {
+				showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas);
+			} else if (pessoas instanceof Cliente) {
+
+				showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas);
+			}
+
+		});
+
+	}
 }
