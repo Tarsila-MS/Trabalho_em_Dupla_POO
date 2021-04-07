@@ -1,30 +1,33 @@
-import static java.lang.Integer.parseInt;
-import static javax.swing.JOptionPane.showInputDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
+
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
-	static String aux1;
 
 	public static void main(String[] args) {
-		ArrayList<Pessoa> pessoa = new ArrayList<>();
+		List<Pessoa> pessoa = new ArrayList<>();
 		int opcao;
+		Scanner teclado = new Scanner(System.in);
 
 		do {
-			opcao = parseInt(showInputDialog(gerarMenu()));
+			gerarMenu();
+			opcao = teclado.nextInt();
 			if (opcao < 1 || opcao > 7) {
-				showMessageDialog(null, "Opção invalida");
+				System.out.println("Opção invalida");
 			} else {
 				switch (opcao) {
 				case 1:
-					opcao = parseInt(showInputDialog(gerarMenu2()));
+					gerarMenu2();
+					opcao = teclado.nextInt();
 					if (opcao != 8 && opcao != 9) {
-						showMessageDialog(null, "Opção invalida");
+						System.out.println("Opção invalida");
 					} else {
 						switch (opcao) {
 						case 8:
 							pessoa.add(cadastrarPessoa(opcao));
+
+							System.out.println(pessoa.get(0).getNome());
 							break;
 						case 9:
 							pessoa.add(cadastrarPessoa(opcao));
@@ -34,26 +37,31 @@ public class Main {
 					break;
 				case 2:
 					pessoa.add(cadastrarPessoa(opcao));
-
+					for (int i = 0; i < pessoa.size(); i++) {
+						System.out.println(pessoa.get(i).getNome());
+					}
 					break;
 				case 3:
+
 					Pesquisar(pessoa);
+					break;
 
 				case 4:
 					Listar(pessoa, opcao);
-
+					break;
 				case 5:
 					Listar(pessoa, opcao);
-
+					break;
 				case 6:
 					Remover(pessoa);
-
+					break;
 				}
 			}
 		} while (opcao != 7);
+		teclado.close();
 	}
 
-	public static String gerarMenu() {
+	public static void gerarMenu() {
 		String aux = "Escolha uma opção\n";
 		aux += "1. Cadastrar Empregado\n";
 		aux += "2. Cadastrar Cliente\n";
@@ -62,18 +70,19 @@ public class Main {
 		aux += "5. Listar Clientes\n";
 		aux += "6. Remover\n";
 		aux += "7. Finalizar\n";
-		return aux;
+		System.out.println(aux);
 	}
 
-	public static String gerarMenu2() {
+	public static void gerarMenu2() {
 		String aux = "Escolha uma opção\n";
 		aux += "8. Cadastrar Gerente\n";
 		aux += "9. Cadastrar Vendedor\n";
 
-		return aux;
+		System.out.println(aux);
 	}
 
 	private static Pessoa cadastrarPessoa(int opcao) {
+
 		Pessoa pessoa = null;
 		switch (opcao) {
 		case 2:
@@ -86,21 +95,26 @@ public class Main {
 			pessoa = cadastrarEmpregado(opcao);
 			break;
 		}
-		pessoa.setNome(showInputDialog(null, "Informe seu nome"));
-		pessoa.setCpf(showInputDialog(null, "Informe seu Cpf"));
-
+		Scanner teclado = new Scanner(System.in);
+		System.out.println("Informe seu nome ->");
+		String nome = teclado.nextLine();
+		System.out.println("Informe seu Cpf ->");
+		String cpf = teclado.nextLine();
+		pessoa.setNome(nome);
+		pessoa.setCpf(cpf);
 		return pessoa;
+
 	}
 
 	private static Cliente cadastrarCliente() {
-		Cliente cliente = null;
-		double divida = Double.parseDouble(showInputDialog(null, "Informe sua dívida"));
-		cliente.setValorDaDivida(divida);
+		Cliente cliente = new Cliente();
+
 		return cliente;
 	}
 
 	private static Empregado cadastrarEmpregado(int opcao) {
-		Empregado empregado = null;
+		Empregado empregado = new Empregado();
+
 		switch (opcao) {
 		case 8:
 			cadastrarGerente();
@@ -109,98 +123,89 @@ public class Main {
 			cadastrarVendedor();
 			break;
 		}
-		empregado.setMatricula(showInputDialog(null, "Informe sua matricula"));
-
+		empregado.setMatricula("" + Math.random() * 100);
 		return empregado;
 	}
 
 	private static Gerente cadastrarGerente() {
 		Gerente gerente = null;
-		gerente.setSalario(Double.parseDouble(showInputDialog(null, "Informe seu salário")));
 		return gerente;
 	}
 
 	private static Vendedor cadastrarVendedor() {
 		Vendedor vendedor = null;
-		vendedor.setComissao(Double.parseDouble(showInputDialog(null, "Informe sua comissao")));
-		vendedor.setTotalDasVendas(Double.parseDouble(showInputDialog(null, "Informe suas vendas")));
 		return vendedor;
+
 	}
 
-	public static void Remover(ArrayList<Pessoa> pessoa) {
-		String consulta = showInputDialog(null, "Informe o Cpf da pessoa a ser deletada");
-		pessoa.forEach(pessoas -> {
-			if (pessoas.getCpf().equals(consulta)) {
-				if (pessoas instanceof Empregado) {
-					int resp = JOptionPane.showConfirmDialog(null,
-							"O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas.getNome());
-					if (resp == JOptionPane.YES_OPTION) {
-						showMessageDialog(null, "Pessoa deletada");
-						int aux = pessoa.indexOf(pessoas);
-						pessoa.remove(aux);
-					} else {
-						showMessageDialog(null, "Ação cancelada");
-					}
+	public static void Pesquisar(List<Pessoa> pessoa) {
+		Scanner teclado = new Scanner(System.in);
+		System.out.println("Informe o Cpf a ser buscado");
+		String consulta = teclado.nextLine();
+		for (int i = 0; i < pessoa.size(); i++) {
 
-				} else if (pessoas instanceof Cliente) {
+			if (((List<Pessoa>) pessoa).get(i).getCpf().equals(consulta)) {
+				if (pessoa instanceof Empregado) {
+					System.out.println(pessoa.get(i));
+				} else if (pessoa instanceof Cliente) {
 
-					int resp = JOptionPane.showConfirmDialog(null,
-							"O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas.getNome());
-					if (resp == JOptionPane.YES_OPTION) {
-						showMessageDialog(null, "Pessoa deletada");
-						int aux = pessoa.indexOf(pessoas);
-						pessoa.remove(aux);
-					} else {
-						showMessageDialog(null, "Ação cancelada");
-					}
+					System.out.println(pessoa.get(i));
 				}
 
 			} else {
-				showMessageDialog(null, "Pessoa não encontrada");
+				System.out.println("Pessoa não encontrada");
 			}
 
-		});
+		}
+		teclado.close();
 	}
 
-	public static void Pesquisar(ArrayList<Pessoa> pessoa) {
-		String consulta = showInputDialog(null, "Informe o Cpf a ser buscado");
-		pessoa.forEach(pessoas -> {
+	public static void Listar(List<Pessoa> pessoa, int opcao) {
 
-			if (pessoas.getCpf().equals(consulta)) {
-				if (pessoas instanceof Empregado) {
-					showMessageDialog(null,
-							"O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas.getNome());
-				} else if (pessoas instanceof Cliente) {
+		for (int i = 0; i < pessoa.size(); i++) {
 
-					showMessageDialog(null,
-							"O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas.getNome());
-				}
-
-			} else {
-				showMessageDialog(null, "Pessoa não encontrada");
-			}
-
-		});
-
-	}
-
-	public static void Listar(ArrayList<Pessoa> pessoa, int opcao) {
-
-		pessoa.forEach(pessoas -> {
-
-			if (pessoas instanceof Empregado && opcao == 4) {
-				aux1 = aux1 + pessoas.getNome() + "\n";
-			} else if (pessoas instanceof Cliente && opcao == 5) {
-				aux1 = aux1 + pessoas.getNome() + "\n";
+			if (pessoa.get(i) instanceof Empregado && opcao == 4) {
+				System.out.println("Empregado ->" + pessoa.get(i));
+			} else if (pessoa.get(i) instanceof Cliente && opcao == 5) {
+				System.out.println("Cliente ->" + pessoa.get(i));
 
 			}
-
-		});
-		if (opcao == 4) {
-			showMessageDialog(null, aux1);
-		} else {
-			showMessageDialog(null, aux1);
 		}
 
+	}
+
+	public static void Remover(List<Pessoa> pessoa) {
+		Scanner teclado = new Scanner(System.in);
+		System.out.println("Informe o Cpf da pessoa a ser deletada");
+		String consulta = teclado.nextLine();
+		for (int i = 0; i < pessoa.size(); i++) {
+			if (((List<Pessoa>) pessoa).get(i).getCpf().equals(consulta)) {
+				if (pessoa instanceof Empregado) {
+					System.out.println("O Cpf-> " + ((Pessoa) pessoa).getCpf() + " pertence ao empregado-> " + pessoa
+							+ "\n deseja remove-lo? \n 1.Sim \n 2.Não");
+					int resp = teclado.nextInt();
+					if (resp == 1) {
+						System.out.println("Pessoa deletada");
+						pessoa.remove(i);
+					} else {
+						System.out.println("Ação cancelada");
+					}
+
+				} else if (pessoa instanceof Cliente) {
+
+					System.out.println("O Cpf-> " + ((Pessoa) pessoa).getCpf() + " pertence ao cliente-> " + pessoa
+							+ "\n deseja remove-lo? \n 1.Sim \n 2.Não");
+					int resp = teclado.nextInt();
+					if (resp == 1) {
+						System.out.println("Pessoa deletada");
+						pessoa.remove(i);
+					} else {
+						System.out.println("Ação cancelada");
+					}
+				}
+
+			}
+			teclado.close();
+		}
 	}
 }
