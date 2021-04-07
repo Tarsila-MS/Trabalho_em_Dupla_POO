@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Main {
+	static String aux1;
 
 	public static void main(String[] args) {
 		ArrayList<Pessoa> pessoa = new ArrayList<>();
@@ -39,10 +40,10 @@ public class Main {
 					Pesquisar(pessoa);
 
 				case 4:
-					Listar(pessoa);
+					Listar(pessoa, opcao);
 
 				case 5:
-					Listar(pessoa);
+					Listar(pessoa, opcao);
 
 				case 6:
 					Remover(pessoa);
@@ -126,15 +127,13 @@ public class Main {
 		return vendedor;
 	}
 
-	
-
 	public static void Remover(ArrayList<Pessoa> pessoa) {
 		String consulta = showInputDialog(null, "Informe o Cpf da pessoa a ser deletada");
 		pessoa.forEach(pessoas -> {
 			if (pessoas.getCpf().equals(consulta)) {
 				if (pessoas instanceof Empregado) {
 					int resp = JOptionPane.showConfirmDialog(null,
-							"O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas);
+							"O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas.getNome());
 					if (resp == JOptionPane.YES_OPTION) {
 						showMessageDialog(null, "Pessoa deletada");
 						int aux = pessoa.indexOf(pessoas);
@@ -146,7 +145,7 @@ public class Main {
 				} else if (pessoas instanceof Cliente) {
 
 					int resp = JOptionPane.showConfirmDialog(null,
-							"O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas);
+							"O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas.getNome());
 					if (resp == JOptionPane.YES_OPTION) {
 						showMessageDialog(null, "Pessoa deletada");
 						int aux = pessoa.indexOf(pessoas);
@@ -169,10 +168,12 @@ public class Main {
 
 			if (pessoas.getCpf().equals(consulta)) {
 				if (pessoas instanceof Empregado) {
-					showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas);
+					showMessageDialog(null,
+							"O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas.getNome());
 				} else if (pessoas instanceof Cliente) {
 
-					showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas);
+					showMessageDialog(null,
+							"O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas.getNome());
 				}
 
 			} else {
@@ -183,16 +184,23 @@ public class Main {
 
 	}
 
-	public static void Listar(ArrayList<Pessoa> pessoa) {
-		pessoa.forEach(pessoas -> {
-			if (pessoas instanceof Empregado) {
-				showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao empregado-> " + pessoas);
-			} else if (pessoas instanceof Cliente) {
+	public static void Listar(ArrayList<Pessoa> pessoa, int opcao) {
 
-				showMessageDialog(null, "O Cpf-> " + pessoas.getCpf() + " pertence ao cliente-> " + pessoas);
+		pessoa.forEach(pessoas -> {
+
+			if (pessoas instanceof Empregado && opcao == 4) {
+				aux1 = aux1 + pessoas.getNome() + "\n";
+			} else if (pessoas instanceof Cliente && opcao == 5) {
+				aux1 = aux1 + pessoas.getNome() + "\n";
+
 			}
 
 		});
+		if (opcao == 4) {
+			showMessageDialog(null, aux1);
+		} else {
+			showMessageDialog(null, aux1);
+		}
 
 	}
 }
