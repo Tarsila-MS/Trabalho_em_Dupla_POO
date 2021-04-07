@@ -6,7 +6,7 @@ public class Empregado extends Pessoa {
 
 		}
 
-		public String getMatricula() {
+		public  String getMatricula() {
 			return matricula;
 		}
 	
