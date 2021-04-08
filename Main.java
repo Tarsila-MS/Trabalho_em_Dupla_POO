@@ -139,25 +139,21 @@ public class Main {
 	}
 
 	public static void Pesquisar(List<Pessoa> pessoa) {
+
 		Scanner teclado = new Scanner(System.in);
-		System.out.println("Informe o Cpf a ser buscado");
+		System.out.println("Informe o Cpf da pessoa a ser deletada");
 		String consulta = teclado.nextLine();
+
 		for (int i = 0; i < pessoa.size(); i++) {
-
-			if (((List<Pessoa>) pessoa).get(i).getCpf().equals(consulta)) {
-				if (pessoa instanceof Empregado) {
-					System.out.println(pessoa.get(i));
-				} else if (pessoa instanceof Cliente) {
-
-					System.out.println(pessoa.get(i));
+			String aux = pessoa.get(i).getCpf();
+			if (aux.equals(consulta)) {
+				if (pessoa.get(i) instanceof Empregado) {
+					System.out.println("Empregado -> " + pessoa.get(i));
+				} else {
+					System.out.println("Cliente -> " + pessoa.get(i));
 				}
-
-			} else {
-				System.out.println("Pessoa não encontrada");
 			}
-
 		}
-		teclado.close();
 	}
 
 	public static void Listar(List<Pessoa> pessoa, int opcao) {
@@ -174,38 +170,31 @@ public class Main {
 
 	}
 
-	public static void Remover(List<Pessoa> pessoa) {
+	public static int Remover(List<Pessoa> pessoa) {
 		Scanner teclado = new Scanner(System.in);
 		System.out.println("Informe o Cpf da pessoa a ser deletada");
 		String consulta = teclado.nextLine();
+		int resp = 0;
+
 		for (int i = 0; i < pessoa.size(); i++) {
-			if (((List<Pessoa>) pessoa).get(i).getCpf().equals(consulta)) {
-				if (pessoa instanceof Empregado) {
-					System.out.println("O Cpf-> " + ((Pessoa) pessoa).getCpf() + " pertence ao empregado-> " + pessoa
-							+ "\n deseja remove-lo? \n 1.Sim \n 2.Não");
-					int resp = teclado.nextInt();
-					if (resp == 1) {
-						System.out.println("Pessoa deletada");
-						pessoa.remove(i);
-					} else {
-						System.out.println("Ação cancelada");
-					}
+			String aux = pessoa.get(i).getCpf();
+			if (aux.equals(consulta)) {
 
-				} else if (pessoa instanceof Cliente) {
+				System.out.println(pessoa.get(i) + "\n Deseja apaga-lo? \n 1.Sim \n 2.Não");
+				resp = teclado.nextInt();
+				switch (resp) {
+				case 1:
 
-					System.out.println("O Cpf-> " + ((Pessoa) pessoa).getCpf() + " pertence ao cliente-> " + pessoa
-							+ "\n deseja remove-lo? \n 1.Sim \n 2.Não");
-					int resp = teclado.nextInt();
-					if (resp == 1) {
-						System.out.println("Pessoa deletada");
-						pessoa.remove(i);
-					} else {
-						System.out.println("Ação cancelada");
-					}
+					return i;
+
+				case 2:
+					System.out.println("Ação cancelada");
+
+					return -3;
 				}
-
 			}
-			teclado.close();
 		}
+		teclado.close();
+		return -3;
+
 	}
-}
